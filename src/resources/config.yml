@@ -1,0 +1,49 @@
+# RickChat configuration file by dev-stan
+# You can find the configuration file for the latest versions here:
+# Do not change this!
+config-version: 1.0
+
+# Set this to false to disable all plugin features. If a "plugin is disabled" message shows up even though the option below is set to "true"
+# Update to the latest version and check for compatibility with other plugins.
+enable-plugin: true
+
+# Configurable commands, make sure the names are compatible with other plugins (for example don't set main to: "essentials", "luckperms").
+# Reload the server to see the changes.
+commands:
+
+# Main command used for other subcommands.
+  main: "arepair"
+  help: "help"
+  reload: "reload"
+
+# Configurable messages, set the message to "-1" to cancel or leave empty to send nothing (prefix, suffix). 
+# Reload the server to see the changes.
+messages:
+
+  # Default messages, used the most.
+  default:
+    prefix: "&c[&fBot&c] &eRick&f: "
+    suffix: ""
+    base-command: "Use /mute to turn off Rick, check out /help for more info."
+    color: "&7"
+    
+  # Response messages, used by the "bot".
+  respond:
+    help: "This is the help message"
+    rules: "This is the rules message"
+    welcome-back: "This is the welcome back message"
+
+# Configurable permisisons
+# Reload the server to see the changes.
+permissions:
+  use: "arepair.use"
+  no-price: "arepair.no-price"
+  effects: "arepair.effects"
+
+effects:
+  enabled: true
+  
+
+
+
+
