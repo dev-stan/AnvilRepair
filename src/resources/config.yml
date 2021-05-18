@@ -1,7 +1,7 @@
-# RickChat configuration file by dev-stan
+# AnvilRepair configuration file by dev-stan
 # You can find the configuration file for the latest versions here:
 # Do not change this!
-config-version: 1.0
+config-version: 1.1
 
 # Set this to false to disable all plugin features. If a "plugin is disabled" message shows up even though the option below is set to "true"
 # Update to the latest version and check for compatibility with other plugins.
@@ -12,27 +12,23 @@ enable-plugin: true
 commands:
 
 # Main command used for other subcommands.
-  main: "arepair"
-  help: "help"
-  reload: "reload"
+  enabled: true
 
-# Configurable messages, set the message to "-1" to cancel or leave empty to send nothing (prefix, suffix). 
+# Configurable messages, set the message to "-1" in order to send nothing (prefix, suffix). 
 # Reload the server to see the changes.
 messages:
 
   # Default messages, used the most.
   default:
-    prefix: 
-    suffix: 
-    base-command: 
-    color: 
+    prefix: "&8[&7Anvil Repair&8]: &7"
+    sufix: "-1" 
 
 # Configurable permisisons
 # Reload the server to see the changes.
 permissions:
   use: "arepair.use"
   no-price: "arepair.no-price"
-  effects: "arepair.effects"
+  admin: "arepair.admin"
 
 effects:
   enabled: true
