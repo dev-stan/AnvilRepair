@@ -19,10 +19,10 @@ import dev.stan.mc.Executor;
 
 import org.bukkit.block.data.Directional;
 
-public class ClickEvent implements Listener {
+public class Interact implements Listener {
 	
 	private final Executor plugin;
-	public ClickEvent(Executor plugin) {
+	public Interact(Executor plugin) {
 		
 		this.plugin = plugin;
 	}
@@ -32,8 +32,6 @@ public class ClickEvent implements Listener {
 
 		Player player = event.getPlayer();
 		Material mat = player.getInventory().getItemInMainHand().getType();
-		
-
 		
 		
 		// Check for repair permission in "config.yml" file
@@ -54,48 +52,46 @@ public class ClickEvent implements Listener {
 					BlockData data = b.getBlockData();
 					
 					if (b.getType() == Material.CHIPPED_ANVIL || b.getType() == Material.DAMAGED_ANVIL) {
-					
-						if (data instanceof Directional) {
-							
-							// Get block face
-							BlockFace face = ((Directional) data).getFacing();
-							
-							
-							loc.getBlock().setType(Material.ANVIL); // Set anvil in target block
-							
-							// Get data for the new block
-							b = player.getTargetBlock(null, 5);
-							data = b.getBlockData();
-							
-							// Modify and set block data
-							((Directional) data).setFacing(face);
-							b.setBlockData(data);
-							
-						}
 						
-						// Check for permission to bypass price in "config.yml"
-						if (!player.hasPermission(plugin.getCustomConfig().getString("permissions.no-price"))) {
+						// Check if player is sneaking
+						if (!player.isSneaking()) {
 							
-							player.getInventory().getItemInMainHand().setAmount(player.getInventory().getItemInMainHand().getAmount()-1); // This nice function clears 1 item in the main hand
-						}
-						
-						
-						if (plugin.getCustomConfig().getBoolean("effects.enabled")) {
-							
-							// add 1 to Y to block location
-							Location locY1 = loc.clone().add(0, 1, 0);
-							
-							// Spawn cloud particle in anvil location
-							DustOptions dustOptions = new DustOptions(Color.fromRGB(69, 69, 69), 1);
-							player.spawnParticle(Particle.REDSTONE, locY1, 27, dustOptions);
+							if (data instanceof Directional) {
 								
-							System.out.println("Particles spawned for player: " + player.getName());
+								// Get block face
+								BlockFace face = ((Directional) data).getFacing();
+								loc.getBlock().setType(Material.ANVIL); // Set anvil in target block
+								
+								// Get data for the new block
+								b = player.getTargetBlock(null, 5);
+								data = b.getBlockData();
+								
+								// Modify and set block data
+								((Directional) data).setFacing(face);
+								b.setBlockData(data);
+								
+							}
+							
+							// Check for permission to bypass price in "config.yml"
+							if (!player.hasPermission(plugin.getCustomConfig().getString("permissions.no-price"))) {
+								
+								player.getInventory().getItemInMainHand().setAmount(player.getInventory().getItemInMainHand().getAmount()-1); // This nice function clears 1 item in the main hand
+							}
+							
+							// Check for effect in "config.yml"
+							if (plugin.getCustomConfig().getBoolean("effects.enabled")) {
+								
+								// add 1 to Y to block location
+								Location locY1 = loc.clone().add(0, 1, 0);
+								
+								// Spawn cloud particle in anvil location
+								DustOptions dustOptions = new DustOptions(Color.fromRGB(69, 69, 69), 1);
+								player.spawnParticle(Particle.REDSTONE, locY1, 27, dustOptions);
+									
+								System.out.println("Particles spawned for player: " + player.getName());
+							}
+							event.setCancelled(true);
 						}
-						
-
-						
-					
-						event.setCancelled(true);
 					}
 				}
 			}
