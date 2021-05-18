@@ -22,16 +22,10 @@ messages:
 
   # Default messages, used the most.
   default:
-    prefix: "&c[&fBot&c] &eRick&f: "
-    suffix: ""
-    base-command: "Use /mute to turn off Rick, check out /help for more info."
-    color: "&7"
-    
-  # Response messages, used by the "bot".
-  respond:
-    help: "This is the help message"
-    rules: "This is the rules message"
-    welcome-back: "This is the welcome back message"
+    prefix: 
+    suffix: 
+    base-command: 
+    color: 
 
 # Configurable permisisons
 # Reload the server to see the changes.
