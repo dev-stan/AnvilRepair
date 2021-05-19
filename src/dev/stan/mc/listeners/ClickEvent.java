@@ -4,6 +4,7 @@ import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Particle;
+import org.bukkit.Sound;
 import org.bukkit.Particle.DustOptions;
 //import org.bukkit.Sound;
 import org.bukkit.block.Block;
@@ -17,10 +18,15 @@ import org.bukkit.event.player.PlayerInteractEvent;
 
 
 import dev.stan.mc.Executor;
+import net.md_5.bungee.api.ChatColor;
 
 import org.bukkit.block.data.Directional;
 
 public class Interact implements Listener {
+	
+	// Will be true if exception is caught
+	Boolean invalidArg = false;
+	Boolean NPE = false;
 	
 	private final Executor plugin;
 	public Interact(Executor plugin) {
@@ -92,15 +98,58 @@ public class Interact implements Listener {
 									DustOptions dustOptions = new DustOptions(Color.fromRGB(69,69,69), plugin.getCustomConfig().getInt("effects.size"));
 									player.spawnParticle(Particle.REDSTONE, locY1, plugin.getCustomConfig().getInt("effects.density"), dustOptions);
 										
-	
-									// Spawn sound in anvil location
-									//player.getWorld().playSound(loc, Sound.BLOCK_ANVIL_FALL, 3.0F, 0.5F);
+									
+									try {
+										player.getWorld().playSound(loc, Sound.valueOf(plugin.getCustomConfig().getString("effects.playsound.sound")), plugin.volume, plugin.pitch);
+									} catch (IllegalArgumentException e) {
+										
+										if (!invalidArg) {
+											
+											// Check for admin perms
+											if (player.hasPermission(plugin.getConfig().getString("permissions.admin"))) {
+												
+												// Check for enabled errors in config
+												if (plugin.errors) {
+													
+													// Check for enabled errors in config (console)
+													if (plugin.showErrorsConsole) {
+														e.printStackTrace();
+													}
+													// Check for enabled errors in config (player)
+													if (plugin.showErrorsOp) {
+														player.sendMessage(plugin.prefix + ChatColor.RED + "Sound option in config is invalid.");
+													}
+												}
+												// invalidArg = true;
+											}
+										}
+										
+									} catch (NullPointerException e) {
+										
+										if (!NPE) {
+											
+											if (player.hasPermission(plugin.getCustomConfig().getString("permissions.admin"))) {
+												
+												// Check for enabled errors in config
+												if (plugin.errors) {
+													
+													// Check for enabled errors in config (console)
+													if (plugin.showErrorsConsole) {
+														e.printStackTrace();
+													}
+													// Check for enabled errors in config (player)
+													if (plugin.showErrorsOp) {
+														player.sendMessage(plugin.prefix + ChatColor.RED + "Caught NPE whlie playing sound; please report to plugin dev.");
+													}
+												}
+											}
+										}
+									}
 								}
 								event.setCancelled(true);
 							}
 						}
 					}
-					
 				}
 			}
 		}
