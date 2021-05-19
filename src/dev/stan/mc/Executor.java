@@ -26,25 +26,45 @@ public class Executor extends JavaPlugin{
 	
     // Init config variables to use across classes
 	public String prefix;
-	public String sufix;
+	public float volume;
+	public float pitch;
+	public Boolean errors;
+	public Boolean showErrorsConsole;
+	public Boolean showErrorsOp;
+	
 	
 	@Override
 	public void onEnable() {
 		
-		// Register events from class
-		getServer().getPluginManager().registerEvents(new Interact(this), this);
-		
 		// Create config
 		createCustomConfig();
 		
-		// Add default config values
-		prefix = ChatColor.translateAlternateColorCodes('&', this.getCustomConfig().getString("messages.default.prefix"));
-
+		
 		// Check if plugin is disasbled
 		if (!this.getCustomConfig().getBoolean("enable-plugin")) {
 			
 			this.getPluginLoader().disablePlugin(this);
 		}
+		
+		// Register events from class
+		getServer().getPluginManager().registerEvents(new Interact(this), this);
+		
+		
+		// Add default config values
+		prefix = ChatColor.translateAlternateColorCodes('&', this.getCustomConfig().getString("messages.default.prefix"));
+		volume = Float.parseFloat(this.getCustomConfig().getString("effects.playsound.volume"));
+		pitch = Float.parseFloat(this.getCustomConfig().getString("effects.playsound.pitch"));
+		errors = this.getCustomConfig().getBoolean("messages.errors.enabled");
+		showErrorsConsole = this.getCustomConfig().getBoolean("messages.errors.show-errors-console");
+		showErrorsOp = this.getCustomConfig().getBoolean("messages.errors.show-errors-op");
+		
+		getServer().getConsoleSender().sendMessage(ChatColor.GREEN + "[AnvilRepair] v1.2.1 enabled.");
+
+	}
+	
+	public void onDisable() {
+		
+		getServer().getConsoleSender().sendMessage(ChatColor.GREEN + "[AnvilRepair] v1.2.1 disabled.");
 	}
 	
     public FileConfiguration getCustomConfig() {
@@ -85,9 +105,13 @@ public class Executor extends JavaPlugin{
 					
 					// Override variables declared in onEnable() method
 					prefix = ChatColor.translateAlternateColorCodes('&', this.getCustomConfig().getString("messages.default.prefix"));
-					sufix = ChatColor.translateAlternateColorCodes('&', this.getCustomConfig().getString("messages.default.sufix"));
+					volume = Float.parseFloat(this.getCustomConfig().getString("effects.playsound.volume"));
+					pitch = Float.parseFloat(this.getCustomConfig().getString("effects.playsound.pitch"));
+					errors = this.getCustomConfig().getBoolean("messages.errors.enabled");
+					showErrorsConsole = this.getCustomConfig().getBoolean("messages.errors.show-errors-console");
+					showErrorsOp = this.getCustomConfig().getBoolean("messages.errors.show-errors-op");
 					
-					player.sendMessage(prefix + ChatColor.GREEN + "Config reloaded succesfully!" + sufix);
+					player.sendMessage(prefix + ChatColor.GREEN + "Config reloaded succesfully!");
 					
 					// Check if plugin is disabled
 					if (!this.getCustomConfig().getBoolean("enable-plugin")) {
@@ -101,19 +125,3 @@ public class Executor extends JavaPlugin{
 		return false;
 	}
 }
-/*
-TextComponent msg1 = new TextComponent("Right click a broken anvil with an ");
-TextComponent msg2 = new TextComponent("iron block");
-TextComponent msg3 = new TextComponent("or another ");
-TextComponent msg4 = new TextComponent("anvil");
-TextComponent msg5 = new TextComponent("to repair it. Check out the plugin page over ");
-TextComponent hereSpigot = new TextComponent("here");
-
-msg1.setColor(ChatColor.WHITE);
-msg2.setColor(ChatColor.AQUA);
-msg3.setColor(ChatColor.WHITE);
-msg4.setColor(ChatColor.AQUA);
-msg5.setColor(ChatColor.WHITE);
-hereSpigot.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://www.spigotmc.org/resources/anvil-repair.92462/"));
-hereSpigot.setColor(ChatColor.BLUE);
-*/
