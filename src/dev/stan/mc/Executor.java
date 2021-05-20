@@ -2,7 +2,7 @@ package dev.stan.mc;
 
 import java.io.File;
 import java.io.IOException;
-
+import java.util.List;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -25,9 +25,14 @@ public class Executor extends JavaPlugin{
     private FileConfiguration customConfig;
 	
     // Init config variables to use across classes
+    public List<?> itemList;
+    
 	public String prefix;
+	
 	public float volume;
 	public float pitch;
+	
+	
 	public Boolean errors;
 	public Boolean showErrorsConsole;
 	public Boolean showErrorsOp;
@@ -57,14 +62,14 @@ public class Executor extends JavaPlugin{
 		errors = this.getCustomConfig().getBoolean("messages.errors.enabled");
 		showErrorsConsole = this.getCustomConfig().getBoolean("messages.errors.show-errors-console");
 		showErrorsOp = this.getCustomConfig().getBoolean("messages.errors.show-errors-op");
+		itemList = this.getCustomConfig().getList("repair.items");
 		
-		getServer().getConsoleSender().sendMessage(ChatColor.GREEN + "[AnvilRepair] v1.2.1 enabled.");
-
+		getServer().getConsoleSender().sendMessage(ChatColor.GREEN + "[AnvilRepair] v1.2.2 enabled.");
 	}
 	
 	public void onDisable() {
 		
-		getServer().getConsoleSender().sendMessage(ChatColor.GREEN + "[AnvilRepair] v1.2.1 disabled.");
+		getServer().getConsoleSender().sendMessage(ChatColor.GREEN + "[AnvilRepair] v1.2.2 disabled.");
 	}
 	
     public FileConfiguration getCustomConfig() {
@@ -110,6 +115,7 @@ public class Executor extends JavaPlugin{
 					errors = this.getCustomConfig().getBoolean("messages.errors.enabled");
 					showErrorsConsole = this.getCustomConfig().getBoolean("messages.errors.show-errors-console");
 					showErrorsOp = this.getCustomConfig().getBoolean("messages.errors.show-errors-op");
+					itemList = this.getCustomConfig().getList("repair.items");
 					
 					player.sendMessage(prefix + ChatColor.GREEN + "Config reloaded succesfully!");
 					
@@ -118,7 +124,6 @@ public class Executor extends JavaPlugin{
 						
 						this.getPluginLoader().disablePlugin(this);
 					}
-
 				}
 			}
 		}
