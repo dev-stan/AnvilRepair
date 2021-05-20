@@ -14,3 +14,7 @@ use: "arepair.use"
 no-price: "arepair.no-price"
 admin: "arepair.admin"
 ```
+## WorldGuard Support  
+This contribution creates support for WorldGuard by stopping players from repairing anvils that are in regions they are not either a member or the owner of.
+
+**THIS IS AN UNTESTED FORK. PLEASE TEST AND MAKE MODIFICATIONS BEFORE MERGING!!!**
