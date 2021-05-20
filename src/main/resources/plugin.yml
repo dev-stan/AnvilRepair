@@ -1,0 +1,13 @@
+name: AnvilRepair
+version: @version@
+main: dev.stan.mc.AnvilRepair
+api-version: 1.16
+softdepend: [ WorldGuard ]
+authors: [ devstan, bobby29831 ]
+description: Repair anvils with iron blocks and damaged anvils
+website: https://github.com/dev-stan/AnvilRepair
+
+commands:
+  arepair:
+    usage: /arepair
+    description: Reloads the configuration file
