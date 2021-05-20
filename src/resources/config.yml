@@ -1,16 +1,26 @@
 # AnvilRepair configuration file by dev-stan
 # You can find the configuration file for the latest versions here:
 # Do not change this!
-config-version: 1.2.1
+config-version: 1.2.2
 
 # Set this to false to disable all plugin features. If a "plugin is disabled" message shows up even though the option below is set to "true"
 # Update to the latest version and check for compatibility with other plugins.
 enable-plugin: true
 
+# Basic plugin settings
+repair:
+
+  # Items used to repair an anvil
+  items:
+    - IRON_BLOCK
+    - DAMANGED_ANVIL
+    - CHIPPED_ANVIL
+    - ANVIL
+  amount: 1 # Amount of material needed to repair the anvil
+
 # Configurable commands, make sure the names are compatible with other plugins (for example don't set main to: "essentials", "luckperms").
 # Reload the server to see the changes.
 commands:
-
 # Main command used for other subcommands.
   enabled: true
 
@@ -43,6 +53,6 @@ effects:
   # Sound which is played on anvil fix
   playsound:
    enabled: true # Wether to play sound on repair
-   sound: "BLOCK_ANVIL_HIT" # https://www.spigotmc.org/wiki/cc-sounds-list/
+   sound: BLOCK_ANVIL_HIT # https://www.spigotmc.org/wiki/cc-sounds-list/
    volume: 3.0 # Default is 3.0
    pitch: 5.0 # Default is 5.0
