@@ -1,3 +1,8 @@
-main: dev.stan.mc.Executor
 name: AnvilRepair
-version: 1.0
+version: ${project.version}
+main: dev.stan.mc.AnvilRepair
+api-version: 1.13
+author: dev-stan
+commands:
+  arepair:
+    aliases: [anvilrepair]
