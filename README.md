@@ -1,4 +1,4 @@
-# [Anvil Repair Plugin v2.1](https://www.spigotmc.org/resources/anvil-repair.92462/)
+# Anvil Repair Plugin v2.1
 
 ### About
 Anvil Repair is a simple and light weight plugin which adds a repair feature for anvils. Simply right click with an iron block or a damaged anvil and the broken anvil will be repaired.
